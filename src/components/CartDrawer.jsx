@@ -28,7 +28,7 @@ export default function CartDrawer() {
 
     const handleCheckout = () => {
         if (!items.length) return;
-        toast.success("Order placed! 🎉 (Demo)");
+        toast.success("Order placed Successfully 🎉🎉");
         dispatch(clearCart());
         dispatch(closeCart());
     };
