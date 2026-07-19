@@ -1,0 +1,226 @@
+@import "tailwindcss";
+
+@theme {
+    --font-heading: "JetBrains Mono", monospace;
+    --font-body: "JetBrains Mono", monospace;
+
+    --color-ink: #0d0d0d;
+    --color-ink-50: #f7f7f7;
+    --color-ink-100: #efefef;
+    --color-ink-200: #e0e0e0;
+    --color-ink-400: #999999;
+    --color-ink-600: #555555;
+    --color-ink-800: #222222;
+
+    --color-volt: #c8f400;
+    --color-volt-dark: #a8ce00;
+    --color-volt-light: #e2ff66;
+
+    --animate-fade-up: fadeUp 0.5s ease forwards;
+    --animate-fade-in: fadeIn 0.4s ease forwards;
+    --animate-slide-in: slideIn 0.35s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+    --animate-scale-in: scaleIn 0.3s ease forwards;
+    --animate-shimmer: shimmer 2s linear infinite;
+    --animate-float: float 3s ease-in-out infinite;
+
+    @keyframes fadeUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+        }
+        to {
+            transform: translateX(0);
+        }
+    }
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+    @keyframes shimmer {
+        from {
+            background-position: -200% 0;
+        }
+        to {
+            background-position: 200% 0;
+        }
+    }
+    @keyframes float {
+        0%,
+        100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+    }
+}
+
+@layer base {
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        font-family: "JetBrains Mono", monospace;
+        background: #0d0d0d;
+        color: #f7f7f7;
+        min-height: 100vh;
+        -webkit-font-smoothing: antialiased;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "JetBrains Mono", monospace;
+    }
+    ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+    }
+    ::-webkit-scrollbar-track {
+        background: #1a1a1a;
+    }
+    ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+        background: #a855f7;
+    }
+}
+
+@layer components {
+    .auth-card {
+        @apply bg-[#111] border border-white/10 rounded-3xl p-8 shadow-2xl;
+    }
+
+    .field {
+        @apply w-full bg-white/5 border border-white/10 rounded-2xl px-4 py-3 text-sm
+           text-white placeholder:text-white/30 outline-none transition-all duration-200
+           focus:border-volt focus:bg-white/10 focus:ring-2 focus:ring-volt/20;
+    }
+
+    select.field {
+        color-scheme: dark;
+    }
+    select.field option {
+        background: #1a1a1a;
+        color: white;
+    }
+    select.field option:checked {
+        background: #c8f400;
+        color: #0d0d0d;
+    }
+
+    .btn-volt {
+        @apply bg-volt text-ink font-semibold rounded-2xl px-6 py-3 text-sm
+           hover:bg-volt-light active:scale-95 transition-all duration-150
+           disabled:opacity-40 disabled:cursor-not-allowed disabled:active:scale-100;
+    }
+    .btn-ghost {
+        @apply border border-white/15 text-white/70 hover:text-white hover:border-white/30
+           rounded-2xl px-6 py-3 text-sm transition-all duration-150 active:scale-95;
+    }
+    .btn-dark {
+        @apply bg-white/10 hover:bg-white/15 text-white rounded-2xl px-6 py-3 text-sm
+           transition-all duration-150 active:scale-95;
+    }
+
+    .product-card {
+        @apply bg-[#111] border border-white/10 rounded-3xl overflow-hidden
+           hover:border-volt/40 transition-all duration-300 hover:-translate-y-1
+           hover:shadow-[0_8px_32px_rgba(200,244,0,0.08)] cursor-pointer;
+    }
+
+    .badge {
+        @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    }
+
+    .skeleton {
+        background: linear-gradient(
+            90deg,
+            #1a1a1a 25%,
+            #252525 50%,
+            #1a1a1a 75%
+        );
+        background-size: 200% 100%;
+        @apply animate-shimmer rounded-xl;
+    }
+
+    .nav-link {
+        @apply text-white/50 hover:text-white text-sm font-medium transition-colors duration-150 relative;
+    }
+    .nav-link.active {
+        @apply text-volt;
+    }
+}
+
+@layer utilities {
+    .clamp-2 {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+    .clamp-1 {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+}
+
+.stagger > *:nth-child(1) {
+    animation-delay: 0ms;
+}
+.stagger > *:nth-child(2) {
+    animation-delay: 60ms;
+}
+.stagger > *:nth-child(3) {
+    animation-delay: 120ms;
+}
+.stagger > *:nth-child(4) {
+    animation-delay: 180ms;
+}
+.stagger > *:nth-child(5) {
+    animation-delay: 240ms;
+}
+.stagger > *:nth-child(6) {
+    animation-delay: 300ms;
+}
+.stagger > *:nth-child(7) {
+    animation-delay: 360ms;
+}
+.stagger > *:nth-child(8) {
+    animation-delay: 420ms;
+}
